@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+#form {
+  display: block;
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+
+#form select {
+  width: 50%;
+  height: 100px;
+  font-size: 30px;
+}
+
+#form button {
+  width: 50%;
+  height: 100px;
+  font-size: 20px;
+}
+
+#eating-list {
+  display: block;
+  width: 30%;
+  height: 100vh;
+  overflow: scroll;
+  float: left;
+  font-size: 20px;
+}
+
+/* #eating-list .restarunt {
+  position: relative;
+} */
+
+#eating-list .title {
+  display: block;
+  padding: 20px 10px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#eating-list .title:hover {
+  background: #d6b161;
+}
+
+.restarunt {
+  position: relative;
+}
+
+.restarunt .info{
+  height: 0;
+  opacity: 0;
+  transition: all .3s linear;
+}
+
+.restarunt .info p {
+  padding: 0;
+  height: 0;
+}
+
+.restarunt .info.open {
+  height: 120px;
+  opacity: 1;
+}
+
+.restarunt .info.open p {
+  padding: 10px 0;
+  height: 30px;
+}
+
+.wrap {
+  width: 70%;
+  float: right;
+}
+
+#story {
+  position: relative;
+  background: #ccc;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  height: 50vh;
+}
+
+#story h1 {
+  padding-top: 30px;
+  font-size: 30px;
+}
+
+#story p {
+  position: absolute;
+  padding: 0 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1.5;
+}
