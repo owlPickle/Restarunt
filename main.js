@@ -5,10 +5,10 @@
   let story = document.getElementById("story");
   let randomBtn = document.getElementById("random");
   let html = '';
+  let selectArr = [];
   // Load Data
   const restarunt = [];
   const area = [];
-  const selectArr = [];
   const data = await axios.get("./data.json");
 
   restarunt.push(...data.data);
@@ -19,8 +19,9 @@
       <div class="restarunt">
         <div class="title">${store.name}</div>
         <div data-region="${store.district}" class="info">
-          <p>${store.open_time}</p>
-          <p>${store.address}</p>
+          <p>營業時間:${store.open_time}</p>
+          <p>地址: ${store.address}</p>
+          <p>電話: ${store.tel}</p>
         </div>
       </div>
     `
@@ -31,11 +32,16 @@
     if (prev.indexOf(now) < 0) prev.push(now);
     return prev;
   }, []);
-
   // click render info
   let eatList = document.querySelectorAll("#eating-list .title");
+  let info = document.querySelectorAll('.info');
   let showInfo = function () {
-    this.nextElementSibling.classList.toggle("open");
+    
+    info.forEach(item => {
+      item.classList.remove("open");
+    })
+    
+    this.nextElementSibling.classList.add("open");
     let storyHtml = '';
     restarunt.forEach(res => {
       if (res.name === this.innerText) {
@@ -48,6 +54,7 @@
     })
   }
   let selectArea = function () {
+    selectArr = [];
     eatList.forEach(region => {
       region.parentElement.style.display = "none";
       if (region.nextElementSibling.getAttribute("data-region") === this.value) {
