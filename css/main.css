@@ -98,3 +98,53 @@
   padding: 0 20px;
   line-height: 1.5;
 }
+
+@media (max-width: 540px) {
+
+  #form {
+    position: fixed;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 10%;
+    margin: auto;
+    text-align: center;
+    background: #41a8E6;
+  }
+
+  #form select, #form button {
+    width: 50%;
+    height: 100%;
+    font-size: 14px;
+    color: #fff;
+    background: #000;
+  }
+
+  #form select {
+    float: left;
+  }
+
+  #form button {
+    float: right;
+  }
+  
+  .wrap {
+    top: 80px;  
+    position: absolute;
+    width: 100%;
+    height: 50%;
+  }
+
+  #eating-list {
+    position: absolute;
+    top: 483px;
+    display: block;
+    width: 100%;
+    height: 40%;
+    overflow: scroll;
+    font-size: 20px;
+    background: #000;
+  }
+
+
+}
