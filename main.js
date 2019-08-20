@@ -13,22 +13,26 @@
   const data = await axios.get("./data.json");
 
   restarunt.push(...data.data);
+  [...data.data].forEach(item => {
+    area.push(item.district);
+  })
   // render restarunt list
-  restarunt.forEach((store, idx) => {
-    area.push(store.district);
-    html = `
-      <div class="restarunt">
-        <div class="title">${store.name}</div>
-        <div data-region="${store.district}" class="info">
-          <p>營業時間:${store.open_time}</p>
-          <p>地址: ${store.address}</p>
-          <p>電話: ${store.tel}</p>
+  let DOMRender = function () {
+    restarunt.forEach((store, idx) => {
+      html = `
+        <div class="restarunt">
+          <div class="title">${store.name}</div>
+          <div data-region="${store.district}" class="info">
+            <p>營業時間:${store.open_time}</p>
+            <p>地址: ${store.address}</p>
+            <p>電話: ${store.tel}</p>
+          </div>
         </div>
-      </div>
-    `
-    list.innerHTML += html;
-  });
-
+      `
+      list.innerHTML += html;
+    });
+  }
+  DOMRender();
   const uniqDistrict = area.reduce(function (prev, now) {
     if (prev.indexOf(now) < 0) prev.push(now);
     return prev;
@@ -37,7 +41,6 @@
   let eatList = document.querySelectorAll("#eating-list .title");
   let info = document.querySelectorAll('.info');
   let showInfo = function () {
-    
     info.forEach(item => {
       item.classList.remove("open");
     })
@@ -52,8 +55,14 @@
           `
         story.innerHTML = storyHtml;
       }
-    })
+    });
+    let top = this.parentElement.offsetTop - this.parentElement.scrollHeight;
+    list.scrollTo({
+      top,
+      behavior: "smooth"
+    });
   }
+
   let selectArea = function () {
     selectArr = [];
     searchBar.value = "";
@@ -63,6 +72,8 @@
         selectArr.push(region);
         region.parentElement.style.display = "block";
         randomBtn.disabled = false;
+      } else if (this.value === "全區") {
+        window.location.reload();
       }
     })
   }
@@ -73,9 +84,9 @@
       if (name.innerText === this.value) {
         selectArr.push(name);
         name.click();
-      }else {
+      } else {
         return false;
-      } 
+      }
     })
   }
 
