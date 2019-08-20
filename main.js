@@ -4,6 +4,7 @@
   let selectInput = document.getElementById("area");
   let story = document.getElementById("story");
   let randomBtn = document.getElementById("random");
+  let searchBar = document.getElementById("search");
   let html = '';
   let selectArr = [];
   // Load Data
@@ -40,7 +41,7 @@
     info.forEach(item => {
       item.classList.remove("open");
     })
-    
+
     this.nextElementSibling.classList.add("open");
     let storyHtml = '';
     restarunt.forEach(res => {
@@ -55,6 +56,7 @@
   }
   let selectArea = function () {
     selectArr = [];
+    searchBar.value = "";
     eatList.forEach(region => {
       region.parentElement.style.display = "none";
       if (region.nextElementSibling.getAttribute("data-region") === this.value) {
@@ -64,10 +66,23 @@
       }
     })
   }
+  // 阿三意麵
+  let search = function () {
+    selectArr = [];
+    eatList.forEach(name => {
+      if (name.innerText === this.value) {
+        selectArr.push(name);
+        name.click();
+      }else {
+        return false;
+      } 
+    })
+  }
 
   let draw = function (e) {
     e.preventDefault();
-    
+    searchBar.value = "";
+
     let randomNum = Math.floor(Math.random() * Math.floor(selectArr.length));
     selectArr[randomNum].click();
   }
@@ -81,6 +96,7 @@
   //選擇地區，render該地區的餐廳
   selectInput.addEventListener("change", selectArea);
   randomBtn.addEventListener("click", draw);
+  searchBar.addEventListener("keyup", search);
 
   eatList.forEach(title => {
     title.addEventListener("click", showInfo);
