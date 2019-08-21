@@ -8,16 +8,19 @@
   let html = '';
   let selectArr = [];
   // Load Data
-  const restarunt = [];
-  const area = [];
-  const data = await axios.get("./data.json");
+  let restarunt = [];
+  let area = [];
 
-  restarunt.push(...data.data);
-  [...data.data].forEach(item => {
-    area.push(item.district);
-  })
+  const loadData = async function () {
+    let data = await axios.get("./data.json");
+
+    restarunt.push(...data.data);
+    [...data.data].forEach(item => {
+      area.push(item.district);
+    })
+  }
   // render restarunt list
-  let DOMRender = function () {
+  const DOMRender = function () {
     restarunt.forEach((store, idx) => {
       html = `
         <div class="restarunt">
@@ -31,16 +34,27 @@
       `
       list.innerHTML += html;
     });
+
+    const uniqDistrict = area.reduce(function (prev, now) {
+      if (prev.indexOf(now) < 0) prev.push(now);
+      return prev;
+    }, []);
+
+    uniqDistrict.forEach(region => {
+      let option = document.createElement('option');
+      option.value = region;
+      option.textContent = region;
+      selectInput.appendChild(option);
+    })
+
   }
+  await loadData();
   DOMRender();
-  const uniqDistrict = area.reduce(function (prev, now) {
-    if (prev.indexOf(now) < 0) prev.push(now);
-    return prev;
-  }, []);
+
   // click render info
   let eatList = document.querySelectorAll("#eating-list .title");
   let info = document.querySelectorAll('.info');
-  let showInfo = function () {
+  const showInfo = function () {
     info.forEach(item => {
       item.classList.remove("open");
     })
@@ -63,7 +77,7 @@
     });
   }
 
-  let selectArea = function () {
+  const selectArea = function () {
     selectArr = [];
     searchBar.value = "";
     eatList.forEach(region => {
@@ -78,7 +92,7 @@
     })
   }
   // 阿三意麵
-  let search = function () {
+  const search = function () {
     selectArr = [];
     eatList.forEach(name => {
       if (name.innerText === this.value) {
@@ -90,7 +104,7 @@
     })
   }
 
-  let draw = function (e) {
+  const draw = function (e) {
     e.preventDefault();
     searchBar.value = "";
 
@@ -98,12 +112,7 @@
     selectArr[randomNum].click();
   }
 
-  uniqDistrict.forEach(region => {
-    let option = document.createElement('option');
-    option.value = region;
-    option.textContent = region;
-    selectInput.appendChild(option);
-  })
+
   //選擇地區，render該地區的餐廳
   selectInput.addEventListener("change", selectArea);
   randomBtn.addEventListener("click", draw);
