@@ -10,6 +10,7 @@
   // Load Data
   let restarunt = [];
   let area = [];
+  let eatList = null;
 
   const loadData = async function () {
     let data = await axios.get("./data.json");
@@ -48,13 +49,18 @@
     })
 
   }
-  await loadData();
-  DOMRender();
+
 
   // click render info
-  let eatList = document.querySelectorAll("#eating-list .title");
-  let info = document.querySelectorAll('.info');
+  const titleClick = function () {
+    eatList = document.querySelectorAll("#eating-list .title");
+
+    eatList.forEach(title => {
+      title.addEventListener("click", showInfo);
+    })
+  }
   const showInfo = function () {
+    let info = document.querySelectorAll('.info');
     info.forEach(item => {
       item.classList.remove("open");
     })
@@ -118,8 +124,10 @@
   randomBtn.addEventListener("click", draw);
   searchBar.addEventListener("keyup", search);
 
-  eatList.forEach(title => {
-    title.addEventListener("click", showInfo);
-  })
+  await loadData();
+  DOMRender();
+  titleClick();
+  
+
 
 })();
