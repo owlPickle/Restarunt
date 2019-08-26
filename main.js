@@ -85,7 +85,7 @@
   }
 
   const selectArea = function () {
-    
+
     searchBar.value = "";
     eatList.forEach(region => {
       region.parentElement.style.display = "none";
@@ -99,37 +99,30 @@
     })
   };
 
-  const searchList = function(){
+  const searchList = function () {
     eatList.forEach(item => {
       item.parentElement.style.display = "none";
       searchArr.forEach(item => {
-        item.parentElement.style.display="block";
-        
+        item.parentElement.style.display = "block";
+
       })
     })
-    
-    
+
+
   }
   // 阿三意麵
   const search = function () {
     searchArr = [];
     eatList.forEach(name => {
-      console.log(name);
-      
-      if (this.value) {
-        if(name.innerText.indexOf(this.value) !== -1){
-          searchArr.push(name);
-          // name.click();
-        }
-      }else {
+
+      if (name.innerText.indexOf(this.value) !== -1) {
+        searchArr.push(name);
+      } else {
         return false;
       }
-
     })
-    console.log(searchArr);
     searchList()
-    
-    
+
   }
 
   const draw = function (e) {
@@ -149,7 +142,7 @@
   await loadData();
   DOMRender();
   titleClick();
-  
+
 
 
 })();
