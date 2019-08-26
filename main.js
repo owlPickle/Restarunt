@@ -7,6 +7,7 @@
   let searchBar = document.getElementById("search");
   let html = '';
   let selectArr = [];
+  let searchArr = [];
   // Load Data
   let restarunt = [];
   let area = [];
@@ -84,7 +85,7 @@
   }
 
   const selectArea = function () {
-    selectArr = [];
+    
     searchBar.value = "";
     eatList.forEach(region => {
       region.parentElement.style.display = "none";
@@ -96,18 +97,39 @@
         window.location.reload();
       }
     })
+  };
+
+  const searchList = function(){
+    eatList.forEach(item => {
+      item.parentElement.style.display = "none";
+      searchArr.forEach(item => {
+        item.parentElement.style.display="block";
+        
+      })
+    })
+    
+    
   }
   // 阿三意麵
   const search = function () {
-    selectArr = [];
+    searchArr = [];
     eatList.forEach(name => {
-      if (name.innerText === this.value) {
-        selectArr.push(name);
-        name.click();
-      } else {
+      console.log(name);
+      
+      if (this.value) {
+        if(name.innerText.indexOf(this.value) !== -1){
+          searchArr.push(name);
+          // name.click();
+        }
+      }else {
         return false;
       }
+
     })
+    console.log(searchArr);
+    searchList()
+    
+    
   }
 
   const draw = function (e) {
